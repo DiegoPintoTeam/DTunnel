@@ -1,0 +1,6 @@
+#!/bin/bash
+
+screen -r -S painel -X quit
+echo
+echo "Panel Dtunnel Mod Apagado(OFFLINE)"
+echo
