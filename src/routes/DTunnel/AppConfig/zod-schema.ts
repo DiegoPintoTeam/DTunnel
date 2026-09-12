@@ -9,7 +9,6 @@ const mode = z.enum([
   'OVPN_SSL',
   'OVPN_SSL_PROXY',
   'V2RAY',
-  'UDP_CUSTOM',
 ]);
 
 export const CategorySchema = z.object({
