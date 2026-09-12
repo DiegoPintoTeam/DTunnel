@@ -529,17 +529,12 @@ a:hover { color: var(--accent-hover); }
   display: inline-flex;
   font-size: .7rem;
   font-weight: 700;
-  gap: .32rem;
   justify-content: center;
   letter-spacing: 0;
   min-height: 1.75rem;
   min-width: 78px;
   padding: .22rem .5rem;
   text-transform: uppercase;
-}
-
-.btn-status-toggle i {
-  font-size: .68rem;
 }
 
 .btn-status-toggle.is-active {
@@ -574,7 +569,6 @@ a:hover { color: var(--accent-hover); }
   display: inline-flex;
   font-size: .78rem;
   height: 1.9rem;
-  justify-content: center;
   min-height: 1.9rem;
   min-width: 1.9rem;
   padding: 0 !important;
@@ -617,10 +611,6 @@ a:hover { color: var(--accent-hover); }
     min-height: 1.5rem;
     min-width: 66px;
     padding: .18rem .42rem;
-  }
-
-  .btn-status-toggle i {
-    font-size: .62rem;
   }
 
   .table-actions {
