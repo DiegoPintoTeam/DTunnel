@@ -12,7 +12,7 @@ class ApkDownloadModal {
                         <div class="card-body p-2">
                             <h5 class="card-title d-flex justify-content-center">Vpn</h5>
                             <p class="card-text">Comunícate con el administrador para configurar la app.</p>
-                            <a href="https://apps.diegopintoteam.com/VpnMovil.apk" class="btn btn-dark w-100 mt-2">DESCARGAR</a>
+                            <a href="https://apps.servidoresvpn.com/VpnMovil.apk" class="btn btn-dark w-100 mt-2">DESCARGAR</a>
                         </div>
                     </div>
                 </div>
