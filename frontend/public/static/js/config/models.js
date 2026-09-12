@@ -9,6 +9,7 @@ const Mode = {
     OVPN_SSL: 'OVPN_SSL',
     OVPN_SSL_PROXY: 'OVPN_SSL_PROXY',
     V2RAY: 'V2RAY',
+    UDP_CUSTOM: 'UDP_CUSTOM',
 }
 
 const Status = {

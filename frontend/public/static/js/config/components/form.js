@@ -300,6 +300,40 @@ class ConfigFormV2ray extends ConfigForm {
     }
 }
 
+class ConfigFormUdpCustom extends ConfigForm {
+    constructor(config, categories) {
+        super(config, categories)
+        this.payload = new ConfigPayload(config?.config_payload?.payload || '')
+        this.server = new ConfigServer(config?.server?.host || '')
+        this.serverPort = new ConfigPort(config?.server?.port || 36712)
+        this.dns1 = new ConfigDns1(config?.dns_server?.dns1 || '8.8.8.8')
+        this.dns2 = new ConfigDns2(config?.dns_server?.dns2 || '8.8.4.4')
+        this.username = new ConfigUsername(config?.auth?.username || '')
+        this.password = new ConfigPassword(config?.auth?.password || '')
+        this.udpPort = new ConfigUdpPort(config.udp_ports || 36712)
+    }
+
+    toConfig() {
+        const config = super.toConfig()
+        config.config_payload = { payload: this.payload.getValue() }
+        config.server = { host: this.server.getValue(), port: this.serverPort.getValue() }
+        config.dns_server = { dns1: this.dns1.getValue(), dns2: this.dns2.getValue() }
+        config.auth = { username: this.username.getValue(), password: this.password.getValue() }
+        config.udp_ports = this.udpPort.getValue().split(',').map(p => parseInt(p))
+        return config
+    }
+
+    render() {
+        const element = super.render()
+        element.insertBefore(this.payload.render(), element.childNodes[3])
+        element.insertBefore(this.udpPort.render(), element.childNodes[4])
+        element.insertBefore(this.createDivWithClass(this.username.render(), this.password.render()), element.childNodes[4])
+        element.insertBefore(this.createDivWithClass(this.dns1.render(), this.dns2.render()), element.childNodes[4])
+        element.insertBefore(this.createDivWithClass(this.server.render(), this.serverPort.render()), element.childNodes[4])
+        return element
+    }
+}
+
 export class ConfigFormFactory {
     static create(type, config, categories) {
         const __map = {
@@ -311,6 +345,7 @@ export class ConfigFormFactory {
             OVPN_SSL: ConfigFormOpenVPNSsl,
             OVPN_SSL_PROXY: ConfigFormOpenVPNSslProxy,
             V2RAY: ConfigFormV2ray,
+            UDP_CUSTOM: ConfigFormUdpCustom,
         }
         return new __map[type](config, categories)
     }
