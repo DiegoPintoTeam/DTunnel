@@ -1,0 +1,209 @@
+.header {
+    display: flex;
+    width: 100%;
+    background: #111b27;
+    min-height: 56px;
+    padding: 0 1.25rem;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color, #2b3a4d);
+}
+
+.header a {
+    text-decoration: none;
+}
+
+.header button {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    min-height: 46px;
+    min-width: 46px;
+    padding: 0;
+    text-decoration: none;
+    width: 46px;
+}
+
+.header button:hover {
+    background: rgba(255, 255, 255, .08);
+}
+
+.header button i {
+    color: #f8fafc;
+    font-size: 1.18rem;
+}
+
+.header-actions {
+    min-width: 0;
+}
+
+.header-theme {
+    color: inherit;
+}
+
+.header-theme-label {
+    align-items: center;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font-size: .875rem;
+    font-weight: 600;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.header-theme-label i {
+    color: var(--accent, inherit);
+}
+
+.text-accent {
+    color: var(--accent, #0f766e) !important;
+}
+
+.theme-select {
+    background: var(--bg-input, #1a2634) !important;
+    border: 1px solid var(--border-color, #2b3a4d) !important;
+    color: var(--text-primary, #e5edf5) !important;
+    min-width: 130px;
+}
+
+.theme-select:focus {
+    border-color: var(--accent, #0f766e) !important;
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb, 15, 118, 110), .24) !important;
+}
+
+.header-account,
+.header-logout {
+    align-items: center;
+    display: inline-flex;
+    gap: .35rem;
+    min-height: 36px;
+    padding: .45rem .8rem;
+    font-size: .84rem;
+    line-height: 1.2;
+    border-radius: 7px;
+}
+
+
+@media (max-width: 991px) {
+    .header {
+        height: auto;
+        min-height: 56px;
+        padding: .625rem .875rem;
+        flex-wrap: wrap;
+        gap: .5rem;
+    }
+
+    .header-actions {
+        width: 100%;
+        margin-left: 0 !important;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: .5rem !important;
+    }
+
+    .header-theme {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .theme-select {
+        min-width: 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .header {
+        flex-wrap: nowrap;
+        gap: .45rem !important;
+        padding: .45rem .55rem !important;
+    }
+
+    #openNav {
+        border-radius: 10px;
+    }
+
+    .header-actions {
+        flex: 1 1 auto;
+        width: auto !important;
+        margin-left: auto !important;
+        flex-wrap: nowrap !important;
+        justify-content: flex-start;
+        gap: .45rem !important;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        padding-bottom: .2rem;
+    }
+
+    .header-actions::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .header-theme {
+        align-items: center;
+        flex: 0 0 auto;
+        gap: .45rem !important;
+        flex-wrap: nowrap !important;
+        min-width: 170px;
+        width: auto;
+    }
+
+    .header-theme-label {
+        flex: 0 0 auto;
+    }
+
+    .header-theme-label span {
+        display: none;
+    }
+
+    .theme-select {
+        max-width: 180px !important;
+        min-height: 40px;
+        min-width: 110px !important;
+        width: 100% !important;
+    }
+
+    .header-account,
+    .header-logout {
+        flex: 0 0 auto;
+        min-height: 40px;
+        padding: .45rem .7rem;
+    }
+
+    .header-account span,
+    .header-logout span {
+        display: none !important;
+    }
+
+    .header button i {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .header {
+        flex-wrap: nowrap;
+        padding: .4rem;
+    }
+
+    .header-actions {
+        gap: .35rem !important;
+    }
+
+    .header-theme {
+        min-width: 158px;
+    }
+
+    .theme-select {
+        min-height: 38px;
+        min-width: 108px !important;
+    }
+}

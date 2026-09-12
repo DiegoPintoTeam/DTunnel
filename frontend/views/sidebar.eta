@@ -1,0 +1,55 @@
+<div class="sidebar shadow">
+  <div class="sidebar-header">
+    <a href="/" target="_self" class="d-flex align-items-center gap-2">
+      <img src="../static/img/icon.jpg" width="40" height="40">
+      <span class="fs-4">DTunnel Pro</span>
+    </a>
+    <button id="closeNav">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+  <ul class="sidebar-nav">
+    <li class="nav-item">
+      <a href="/" target="_self" class="nav-link text-white <%~ it.active === 'home' ? 'active' : '' %>">
+        <i class="fas fa-house"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/categories" target="_self" class="nav-link text-white <%~ it.active === 'categories' ? 'active' : '' %>">
+        <i class="fas fa-bookmark"></i>
+        <span>Categorías</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/configs" target="_self" class="nav-link text-white <%~ it.active === 'configs' ? 'active' : '' %>">
+        <i class="fas fa-gear"></i>
+        <span>Configuración</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/application" target="_self" class="nav-link text-white <%~ it.active === 'application' ? 'active' : '' %>">
+        <i class="fas fa-mobile-screen-button"></i>
+        <span>Aplicación</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/texts" target="_self" class="nav-link text-white <%~ it.active === 'texts' ? 'active' : '' %>">
+        <i class="fas fa-file-lines"></i>
+        <span>Textos</span>
+      </a>
+    </li>
+    <% if (it.user && it.user.role === 'ADMIN') { %>
+    <li class="nav-item">
+      <a href="/resellers" target="_self" class="nav-link text-white <%~ it.active === 'resellers' ? 'active' : '' %>">
+        <i class="fas fa-users"></i>
+        <span>Revendedores</span>
+      </a>
+    </li>
+    <% } %>
+  </ul>
+  <div class="sidebar-footer text-center text-white-50 small pt-2 mt-2">
+    DTunnel Pro &copy; <%= new Date().getFullYear() %>
+  </div>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay"></div>

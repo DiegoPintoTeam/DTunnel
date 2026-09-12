@@ -1,0 +1,40 @@
+<nav class="header topbar">
+  <button class="btn btn-link text-white px-2" id="openNav" title="Menú" aria-label="Abrir o cerrar menú" aria-expanded="true">
+    <i class="fas fa-bars"></i>
+  </button>
+  <div class="header-actions ms-auto d-flex align-items-center gap-2 gap-md-3">
+    <div class="header-theme d-flex align-items-center gap-2">
+      <label for="themeSelectHeader" class="header-theme-label small text-white mb-0 d-flex align-items-center gap-2" title="Tema">
+        <i class="fas fa-palette fa-lg text-accent" aria-hidden="true"></i>
+        <span class="d-none d-sm-inline">Tema</span>
+      </label>
+      <select id="themeSelectHeader" class="form-select form-select-sm theme-select theme-select-control" aria-label="Selector de tema">
+        <option value="random_daily">Aleatorio diario</option>
+        <option value="enterprise">Enterprise</option>
+        <option value="carbon">Carbon</option>
+        <option value="oceanic">Oceanic</option>
+        <option value="crimson">Crimson</option>
+        <option value="forest">Forest</option>
+        <option value="solar">Solar</option>
+        <option value="oscuro">Oscuro</option>
+        <option value="dia">Claro</option>
+      </select>
+      <script>
+        (() => {
+          const themes = ['enterprise', 'carbon', 'oceanic', 'crimson', 'forest', 'solar', 'oscuro', 'dia'];
+          const storedTheme = localStorage.getItem('dtunnel-theme') || 'enterprise';
+          const selectedTheme = storedTheme === 'random_daily' || themes.includes(storedTheme) ? storedTheme : 'enterprise';
+          document.getElementById('themeSelectHeader').value = selectedTheme;
+        })();
+      </script>
+    </div>
+    <a href="/profile" target="_self" class="btn btn-sm btn-outline-info header-account" title="<%~ it.user.role === 'ADMIN' ? 'Cuenta de administrador' : 'Mi cuenta' %>">
+      <i class="fas <%~ it.user.role === 'ADMIN' ? 'fa-crown' : 'fa-user-pen' %>"></i>
+      <span class="d-none d-sm-inline ms-1"><%~ it.user.role === 'ADMIN' ? 'Cuenta de administrador' : 'Mi cuenta' %></span>
+    </a>
+    <a href="/logout" target="_self" class="btn btn-sm btn-outline-danger header-logout" title="Salir">
+      <i class="fas fa-right-from-bracket"></i>
+      <span class="d-none d-sm-inline">Salir</span>
+    </a>
+  </div>
+</nav>

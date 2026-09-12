@@ -1,0 +1,76 @@
+<div class="dashboard container-fluid px-4">
+  <section class="dashboard-hero">
+    <div>
+      <p class="dashboard-eyebrow"><i class="fas fa-shield-halved"></i> DTunnel Pro</p>
+      <h1>Dashboard</h1>
+      <p class="dashboard-welcome">Hola, <strong><%= it.user.username %></strong></p>
+    </div>
+    <div class="account-chip">
+      <span class="account-chip-icon"><i class="fas <%~ it.user.role === 'ADMIN' ? 'fa-crown' : 'fa-user' %>"></i></span>
+      <span><small>Cuenta</small><strong><%= it.user.role === 'ADMIN' ? 'Administrador' : 'Revendedor' %></strong></span>
+    </div>
+  </section>
+
+  <section class="dashboard-section">
+    <div class="section-heading"><h2>Resumen de la cuenta</h2></div>
+    <div class="row g-3">
+      <div class="col-12 col-md-6 col-xl-4">
+        <article class="account-stat">
+          <span class="account-stat-icon"><i class="fas fa-calendar-plus"></i></span>
+          <div><span>Registrado en</span><strong><%= it.formatDate(it.user.created_at) %></strong></div>
+        </article>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <article class="account-stat">
+          <span class="account-stat-icon"><i class="fas fa-clock-rotate-left"></i></span>
+          <div><span>Última actualización</span><strong><%= it.formatDate(it.user.updated_at) %></strong></div>
+        </article>
+      </div>
+      <div class="col-12 col-md-6 col-xl-4">
+        <article class="account-stat account-stat-accent">
+          <span class="account-stat-icon"><i class="fas fa-calendar-check"></i></span>
+          <div><span>Vencimiento</span><strong><% if (it.user && it.user.expires_at) { %><%= it.formatDate(it.user.expires_at) %><% } else { %>Sin vencimiento<% } %></strong></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="dashboard-section">
+    <div class="section-heading"><h2>Gestión del panel</h2></div>
+    <div class="row g-3">
+      <div class="col-12 col-md-6 <% if (it.user && it.user.role === 'ADMIN') { %>col-xl-4<% } else { %>col-xl-6<% } %>">
+        <a href="/configs" target="_self" class="metric-card metric-config">
+          <span class="metric-icon"><i class="fas fa-gear"></i></span>
+          <span class="metric-copy"><small>Configuraciones</small><strong class="__config"></strong><span class="__config__placeholder placeholder-glow"><i class="placeholder col-5"></i></span></span>
+          <i class="fas fa-arrow-right metric-arrow"></i>
+        </a>
+      </div>
+      <div class="col-12 col-md-6 <% if (it.user && it.user.role === 'ADMIN') { %>col-xl-4<% } else { %>col-xl-6<% } %>">
+        <a href="/categories" target="_self" class="metric-card metric-category">
+          <span class="metric-icon"><i class="fas fa-bookmark"></i></span>
+          <span class="metric-copy"><small>Categorías</small><strong class="__category"></strong><span class="__category__placeholder placeholder-glow"><i class="placeholder col-5"></i></span></span>
+          <i class="fas fa-arrow-right metric-arrow"></i>
+        </a>
+      </div>
+      <% if (it.user && it.user.role === 'ADMIN') { %>
+      <div class="col-12 col-md-6 col-xl-4">
+        <a href="/resellers" target="_self" class="metric-card metric-reseller">
+          <span class="metric-icon"><i class="fas fa-users"></i></span>
+          <span class="metric-copy"><small>Revendedores</small><strong class="__reseller"></strong><span class="__reseller__placeholder placeholder-glow"><i class="placeholder col-5"></i></span></span>
+          <i class="fas fa-arrow-right metric-arrow"></i>
+        </a>
+      </div>
+      <% } %>
+    </div>
+  </section>
+
+  <% if (it.user && it.user.role === 'ADMIN') { %>
+  <section class="dashboard-actions">
+    <div><p class="dashboard-eyebrow mb-1">Administración</p><h2>Acciones rápidas</h2></div>
+    <div class="quick-actions">
+      <a href="/backup" target="_self" class="btn btn-dark"><i class="fas fa-box-archive"></i><span>Copia de seguridad</span></a>
+      <button type="button" class="btn btn-dark" onclick="restartPanel()"><i class="fas fa-rotate-right"></i><span>Reiniciar panel</span></button>
+    </div>
+  </section>
+  <% } %>
+</div>

@@ -1,0 +1,60 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #0b1724;
+    background-image:
+        radial-gradient(circle at 15% 15%, rgba(20, 184, 166, .18), transparent 32%),
+        radial-gradient(circle at 85% 85%, rgba(37, 99, 235, .2), transparent 36%),
+        linear-gradient(135deg, #0b1724 0%, #102b3b 48%, #0b1724 100%);
+    background-attachment: fixed;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-signin .checkbox {
+    font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.form-signin .form-control {
+    background-color: rgba(9, 24, 38, .82) !important;
+    border: 1px solid rgba(148, 163, 184, .3);
+    color: #f8fafc !important;
+}
+
+.form-signin .form-control::placeholder {
+    color: #94a3b8;
+}
+
+.form-signin .form-control:focus {
+    border-color: #2dd4bf;
+    box-shadow: 0 0 0 .2rem rgba(45, 212, 191, .15);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+input[data-autocompleted] {
+    background-color: transparent !important;
+}
