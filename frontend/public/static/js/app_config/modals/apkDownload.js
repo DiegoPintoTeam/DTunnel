@@ -9,10 +9,10 @@ class ApkDownloadModal {
             <div class="modal-body p-2">
                 <div class="d-flex flex-column gap-2 justify-content-center">
                     <div class="card">
-                        <div class="card-body p-2">
-                            <h5 class="card-title d-flex justify-content-center">Vpn</h5>
-                            <p class="card-text">Comunícate con el administrador para configurar la app.</p>
-                            <a href="https://apps.servidoresvpn.com/VpnMovil.apk" class="btn btn-dark w-100 mt-2">DESCARGAR</a>
+                        <div class="card-body p-3 text-center">
+                            <h5 class="card-title fw-bold mb-2">Vpn</h5>
+                            <p class="card-text text-muted small mb-3">Para la activación y configuración personalizada del servicio, comuníquese con su administrador.</p>
+                            <a href="https://apps.servidoresvpn.com/VpnMovil.apk" class="btn btn-dark w-100 py-2 fw-semibold">DESCARGAR APK</a>
                         </div>
                     </div>
                 </div>
