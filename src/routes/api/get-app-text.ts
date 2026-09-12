@@ -13,5 +13,5 @@ export default async function GetAppText(user_id: string) {
       },
     })
   );
-  return appText ? appText : [];
+  return appText ?? [];
 }

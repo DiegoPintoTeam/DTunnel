@@ -194,9 +194,6 @@ class DialogBase {
         window.addEventListener('resize', () => {
             this.resize();
         });
-
-        // document.body.appendChild(this.dialog.element);
-        this.element.parentElement.appendChild(this.dialog.element);
     }
 }
 

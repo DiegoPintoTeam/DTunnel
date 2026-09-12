@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import SafeCallback from '../../../utils/safe-callback';
 import Authentication from '../../../middlewares/authentication';
 import { FastifyReply, FastifyRequest, RouteOptions } from 'fastify';
 

@@ -155,7 +155,6 @@ const main = async () => {
     categoryList.register(new Observer('add', async category => {
 
         render()
-        //showToastInfo(`Crinado categoria ${category.name}...`)
 
         const response = await fetch('/category', {
             method: 'POST',
@@ -181,8 +180,6 @@ const main = async () => {
 
     categoryList.register(new Observer('remove', async category => {
         render()
-
-        // showToastInfo(`Removendo categoria ${category.name}...`)
 
         try {
 

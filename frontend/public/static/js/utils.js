@@ -85,7 +85,6 @@ const showToastInfo = (message) => {
 const uploadImage = async (e, element) => {
 
     showToastInfo('Espera, enviando imagen...');
-    //showToastWarning('Upload de imagem indisponível!');;
 
     const form = new FormData();
     form.append('file', e.files[0]);

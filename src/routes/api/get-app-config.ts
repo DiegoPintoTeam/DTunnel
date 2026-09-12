@@ -19,5 +19,5 @@ export default async function GetAppConfig(user_id: string) {
     })
   );
   if (!AppConfig?.length) return [];
-  return AppConfig ? AppConfig.map(AppConfigParser) : [];
+  return AppConfig.map(AppConfigParser);
 }

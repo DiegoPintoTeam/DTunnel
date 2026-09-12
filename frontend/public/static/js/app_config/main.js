@@ -387,9 +387,6 @@ const main = async () => {
 
     appConfigList.observe(async (event, config) => {
         if (event == 'update') {
-
-            // showToastInfo('Salvando configuração...');
-
             const data = config.toJson();
             const url = config.id ? `/app_config/store/update/${config.id}` : '';
 
@@ -418,9 +415,6 @@ const main = async () => {
 
     appConfigList.observe(async (event, config) => {
         if (event == 'delete') {
-
-            //showToastInfo('Deletando configuração...');
-
             const response = await fetch(`/app_layout/delete/${config.id}`, {
                 method: 'DELETE',
                 headers: {}
@@ -444,9 +438,6 @@ const main = async () => {
 
     appConfigList.observe(async (event, data) => {
         if (event == 'create') {
-
-            //showToastInfo('Criando configuração...');
-
             const response = await fetch('/app_layout/create', {
                 method: 'POST',
                 headers: {}
