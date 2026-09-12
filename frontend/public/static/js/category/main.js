@@ -123,7 +123,7 @@ const main = async () => {
             const item = new TableItem(c)
 
             item.setOnClickDelete(() => {
-                showAlertConfirm(() => categoryList.remove(c))
+                showAlertConfirm(() => categoryList.remove(c), 'Esta acción eliminará la categoría y puede afectar sus configuraciones.', '¿Estás seguro de que deseas borrar?')
             })
 
             item.setOnClickStatus(() => {

@@ -101,7 +101,7 @@ const createIconsFooter = (config, list) => {
     });
 
     footer.setOnClickToggle(() => list.toggle(config.id));
-    footer.setOnClickDelete(() => showAlertConfirm(() => list.remove(config.id)));
+    footer.setOnClickDelete(() => showAlertConfirm(() => list.remove(config.id), 'Esta acción eliminará el tema de la aplicación.', '¿Estás seguro de que deseas borrar?'));
 
     const appConfigView = new AppConfigView(config, {
         maxWidth: '270px',
@@ -266,7 +266,7 @@ const renderCard = (root, appConfigList) => {
     })
     cardDefault.setOnBtnImportClick(() => appConfigImportModal.show());
 
-    cardDefault.setOnBtnSyncClick(() => showAlertConfirm(() => appConfigList.notify('sync', null)));
+    cardDefault.setOnBtnSyncClick(() => showAlertConfirm(() => appConfigList.notify('sync', null), 'Se sincronizará la configuración actual.', '¿Estás seguro de que deseas sincronizar?'));
 
     const apkDownloadModal = new ApkDownloadModal();
     cardDefault.setOnBtnApkDownloadClick(() => apkDownloadModal.show());

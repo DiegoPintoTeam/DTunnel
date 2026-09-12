@@ -165,7 +165,7 @@ const renderRow = (reseller) => {
 
     row.querySelector('.__btn__edit').addEventListener('click', () => openResellerModal(reseller));
     row.querySelector('.__btn__delete').addEventListener('click', () => {
-        showAlertConfirm(() => deleteReseller(reseller));
+        showAlertConfirm(() => deleteReseller(reseller), 'Esta acción eliminará la cuenta del revendedor.', '¿Estás seguro de que deseas borrar?');
     });
 
     return row;

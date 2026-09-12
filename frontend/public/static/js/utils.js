@@ -117,10 +117,10 @@ const copyToClipboard = data => {
     $temp.remove();
 }
 
-const showAlertConfirm = (callback, message) => {
+const showAlertConfirm = (callback, message, title = '¿Estás seguro?') => {
     Swal.fire({
-        title: 'Estás seguro?',
-        text: message || 'No podrás revertir esto!',
+        title: title,
+        text: message || '¡No podrás revertir esto!',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#212529',
@@ -151,5 +151,5 @@ const restartPanel = () => {
         } catch (err) {
             showToastError('No se pudo solicitar el reinicio del panel.');
         }
-    }, 'El panel se reiniciará y quedará unos segundos sin responder.');
+    }, 'El panel se reiniciará y quedará unos segundos sin responder.', '¿Estás seguro de que deseas reiniciar el panel?');
 }

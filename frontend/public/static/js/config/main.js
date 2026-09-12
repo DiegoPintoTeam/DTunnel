@@ -73,7 +73,7 @@ document.querySelector('.delete-config').onclick = () => {
         items.forEach(item => {
             list.remove(item.config.id);
         });
-    });
+    }, 'Esta acción eliminará las configuraciones seleccionadas.', '¿Estás seguro de que deseas borrar?');
 };
 
 document.querySelector('.export-config').onclick = () => {
@@ -126,8 +126,8 @@ const renderApp = () => {
             });
             modal.show();
         });
-        item.setOnClickDelete(() => showAlertConfirm(() => list.remove(config.id)));
-        item.setOnClickCopy(() => showAlertConfirm(() => list.duplicate(config.id)));
+        item.setOnClickDelete(() => showAlertConfirm(() => list.remove(config.id), 'Esta acción eliminará permanentemente la configuración.', '¿Estás seguro de que deseas borrar?'));
+        item.setOnClickCopy(() => showAlertConfirm(() => list.duplicate(config.id), 'Se creará una copia idéntica de esta configuración.', '¿Estás seguro de que deseas copiar?'));
         item.setOnToggleStatus(() => list.toggleStatus(config.id));
         item.setOnOrderUp(() => {
             config.sorter -= 1;

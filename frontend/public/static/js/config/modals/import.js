@@ -106,13 +106,13 @@ class ConfigImportModal {
                             this.setTextAreaValue(items);
                         }
                     });
-                }));
+                }, 'Se quitará este elemento de la lista a importar.', '¿Estás seguro de que deseas borrar?'));
                 item.setOnClickCopy(() => showAlertConfirm(() => {
                     const data = JSON.parse(JSON.stringify(config));
                     data.name = data.name + ' (COPY)'
                     items.push(data);
                     this.setTextAreaValue(items);
-                }));
+                }, 'Se creará una copia de esta configuración en la lista.', '¿Estás seguro de que deseas copiar?'));
                 item.setOnToggleStatus(() => {
                     config.status = config.status == 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
                     this.setTextAreaValue(items);
