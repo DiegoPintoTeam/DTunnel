@@ -560,6 +560,7 @@ a:hover { color: var(--accent-hover); }
   flex-wrap: nowrap;
   gap: .3rem;
   justify-content: center;
+  vertical-align: middle;
   white-space: nowrap;
 }
 
@@ -572,10 +573,13 @@ a:hover { color: var(--accent-hover); }
   min-height: 1.9rem;
   min-width: 1.9rem;
   padding: 0 !important;
+  line-height: 1;
+  vertical-align: middle;
   width: 1.9rem;
 }
 
 .table-action-btn i {
+  display: block;
   line-height: 1;
 }
 
