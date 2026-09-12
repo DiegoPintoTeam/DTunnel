@@ -29,6 +29,7 @@ export default {
         await prisma.appConfig.create({
           data: {
             ...getDateCreateAppConfig(appConfig),
+            status: 'ACTIVE',
             category_id: categoryAlreadExists.id,
             user_id: req.user.id,
           },
@@ -58,6 +59,7 @@ export default {
       await prisma.appConfig.create({
         data: {
           ...getDateCreateAppConfig(appConfig),
+          status: 'ACTIVE',
           category_id: categoryDataImport[categoryUniqueName].id!,
           user_id: req.user.id,
         },
