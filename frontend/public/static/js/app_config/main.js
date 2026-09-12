@@ -364,11 +364,13 @@ const main = async () => {
             items.forEach(item => appConfigList.add(AppConfig.fromJson(item)));
             renderApp(appConfigList);
             closeLoading();
+            return true;
 
         } catch (e) {
             const error = new InternalError(document.querySelector('.content'));
             error.render();
-            return;
+            closeLoading();
+            return false;
         }
     }
 
@@ -518,24 +520,13 @@ const main = async () => {
 
     appConfigList.observe(async (event, config) => {
         if (event === 'sync') {
-            // showToastInfo('Aguarde, sincronizando configuração...');
-            let response = await fetch('/app_config/sync', { 'method': 'POST' });
-            let result = await response.json();
-            if (result.data && result.status != 201) {
-                showToastError('Error al sincronizar la configuración predeterminada!');
-                return;
-            }
-
-            response = await fetch('/app_config/store/sync', { 'method': 'POST' });
-            result = await response.json();
-            if (result.data && result.status != 201) {
-                showToastError('Error al sincronizar la lista de configuraciones!');
-                return;
-            }
-
-            showToastSuccess('Felicitaciones, configuración sincronizada con éxito!');
             showLoading();
-            getConfigApp();
+            try {
+                const updated = await getConfigApp();
+                if (updated) showToastSuccess('Configuración actualizada con éxito!');
+            } catch (error) {
+                showToastError('Error al actualizar las configuraciones!');
+            }
         }
     });
 }
