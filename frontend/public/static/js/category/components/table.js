@@ -51,6 +51,7 @@ class TableItem {
 
         this.onClickDelete = null
         this.onClickEdit = null
+        this.onClickStatus = null
     }
 
     setOnClickDelete(fn) {
@@ -59,6 +60,10 @@ class TableItem {
 
     setOnClickEdit(fn) {
         this.onClickEdit = fn
+    }
+
+    setOnClickStatus(fn) {
+        this.onClickStatus = fn
     }
 
     render() {
@@ -75,10 +80,9 @@ class TableItem {
                 </span>
             </td>
             <td>
-                <span class="btn-status-toggle ${this.category.status == 'ACTIVE' ? 'is-active' : 'is-inactive'}">
-                    <i class="fas ${this.category.status == 'ACTIVE' ? 'fa-check' : 'fa-xmark'}"></i>
+                <button type="button" class="btn btn-status-toggle ${this.category.status == 'ACTIVE' ? 'is-active' : 'is-inactive'}">
                     ${this.category.status == 'ACTIVE' ? 'ACTIVO' : 'INACTIVO'}
-                </span>
+                </button>
             </td>
             <td>
                 <div class="table-actions">
@@ -107,6 +111,12 @@ class TableItem {
         btnEdit.addEventListener('click', event => {
             event.preventDefault()
             if (this.onClickEdit) this.onClickEdit(this.category)
+        })
+
+        const btnStatus = this.element.querySelector('.btn-status-toggle')
+        btnStatus.addEventListener('click', event => {
+            event.preventDefault()
+            if (this.onClickStatus) this.onClickStatus(this.category)
         })
     }
 

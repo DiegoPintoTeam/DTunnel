@@ -1,4 +1,4 @@
-import CategoryTable, { TableItem } from "./components/table.js?v=2";
+import CategoryTable, { TableItem } from "./components/table.js?v=3";
 import Category from "./models.js";
 
 import { Observable } from "../common/observer.js";
@@ -124,6 +124,11 @@ const main = async () => {
 
             item.setOnClickDelete(() => {
                 showAlertConfirm(() => categoryList.remove(c))
+            })
+
+            item.setOnClickStatus(() => {
+                c.status = c.status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE'
+                categoryList.update(c)
             })
 
             item.setOnClickEdit(() => {
