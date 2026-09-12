@@ -1,3 +1,4 @@
+import { R2Storage } from '../../services/r2/upload';
 import { Imgbb } from '../../services/imgbb/upload';
 import Authentication from '../../middlewares/authentication';
 import { FastifyReply, FastifyRequest, RouteOptions } from 'fastify';
@@ -14,7 +15,12 @@ export default {
       throw new Error('Archivo no válido!');
     }
 
-    const upload = await Imgbb.upload(file);
+    let upload;
+    if (process.env.R2_SECRET_ACCESS_KEY) {
+      upload = await R2Storage.upload(file);
+    } else {
+      upload = await Imgbb.upload(file);
+    }
 
     reply.status(upload.status).send(upload);
   },
