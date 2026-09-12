@@ -611,7 +611,6 @@ a:hover { color: var(--accent-hover); }
   .btn-status-toggle {
     border-radius: 999px;
     font-size: .66rem;
-    gap: .25rem;
     min-height: 1.5rem;
     min-width: 66px;
     padding: .18rem .42rem;

@@ -390,7 +390,6 @@ const main = async () => {
     appConfigList.observe(async (event, config) => {
         if (event == 'update') {
             const data = config.toJson();
-            const url = config.id ? `/app_config/store/update/${config.id}` : '';
 
             const response = await fetch('/app_layout/update', {
                 method: 'PUT',
