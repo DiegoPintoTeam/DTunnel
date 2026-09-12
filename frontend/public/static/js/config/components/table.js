@@ -116,7 +116,6 @@ export class TableItem {
         </td>
         <td class="align-middle">
           <button type="button" class="btn btn-status-toggle ${status === 'ACTIVE' ? 'is-active' : 'is-inactive'}">
-            <i class="fas ${status === 'ACTIVE' ? 'fa-check' : 'fa-xmark'}"></i>
             <span>${status === 'ACTIVE' ? 'ACTIVO' : 'INACTIVO'}</span>
           </button>
         </td>
