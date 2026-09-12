@@ -30,6 +30,11 @@ export default {
     const user_id = headers.data['dtunnel-token'];
     const response = await handler[headers.data['dtunnel-update']](user_id);
 
+    reply.header('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+    reply.header('Pragma', 'no-cache');
+    reply.header('Expires', '0');
+    reply.header('Surrogate-Control', 'no-store');
+
     if (headers.data.password == password) {
       if (['app_config', 'app_layout'].includes(headers.data['dtunnel-update'])) {
         return reply.send(response.map((data: any) => JSON.parse(data)));
