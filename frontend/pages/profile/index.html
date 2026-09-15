@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR" translate="no" data-bs-theme="light">
+
+<head>
+  <base href="/" target="_blank">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="google" content="notranslate">
+  <script>
+    (() => {
+      const themes = ['enterprise', 'carbon', 'oceanic', 'crimson', 'forest', 'solar', 'oscuro', 'dia'];
+      const stored = localStorage.getItem('dtunnel-theme') || 'enterprise';
+      const now = new Date();
+      const key = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
+      let hash = 0;
+      for (let i = 0; i < key.length; i += 1) hash = (hash * 31 + key.charCodeAt(i)) >>> 0;
+      const chosen = stored === 'random_daily' ? themes[hash % themes.length] : themes.includes(stored) ? stored : 'enterprise';
+      const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+      const bsTheme = localStorage.getItem('bs-theme') || (prefersDark ? 'dark' : 'light');
+      document.documentElement.classList.add('theme-preload', 'theme-' + chosen);
+      document.documentElement.setAttribute('data-bs-theme', bsTheme === 'auto' && prefersDark ? 'dark' : bsTheme);
+    })();
+  </script>
+  <link rel="shortcut icon" href="/static/img/favicon.svg" />
+  <title>DTunnel Pro - Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <link rel="stylesheet" href="../static/css/styles.css">
+  <link rel="stylesheet" href="../static/css/bootstrap.css">
+  <link rel="stylesheet" href="../static/css/sidebar.css?v=2">
+  <link rel="stylesheet" href="../static/css/header.css?v=6">
+  <link rel="stylesheet" href="../static/css/themes.css?v=17">
+  <script src="../static/js/dark_light.js?v=3"></script>
+  <meta name="csrf-token" content="<%= it.csrfToken %>">
+</head>
+
+<body>
+  <main class="d-flex">
+    <%~ include("./sidebar", it) %>
+    <div class="container-fluid p-0">
+      <%~ include("./header", it) %>
+      <div class="content pt-1 overflow-auto">
+        <div class="container-fluid d-flex w-100 align-items-center justify-content-center">
+          <div class="card shadow-lg p-3 mb-5 rounded border border-0" style="width: 50rem;">
+            <div class="card-body">
+              <div class="d-flex justify-content-center align-items-center flex-column">
+                <div class="mb-3 mx-auto">
+                  <img class="profile-logo" src="../static/img/icon.jpg" width="110" alt="Logo DTunnel Pro">
+                </div>
+              </div>
+              <div class="row mt-2">
+                <div class="col-md-6 mb-3">
+                  <div class="mb-3">
+                    <label for="id" class="form-label">ID</label>
+                    <div class="input-group">
+                      <i class="input-group-text fas fa-id-card"></i>
+                      <input type="text" class="form-control" id="id" name="id" value="<%= it.user.id %>" readonly>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="username" class="form-label">Nombre de usuario</label>
+                    <div class="input-group">
+                      <i class="input-group-text fas fa-user"></i>
+                      <input type="text" class="form-control" id="username" name="username" value="<%= it.user.username %>">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <div class="input-group">
+                      <i class="input-group-text fas fa-envelope"></i>
+                      <input type="text" class="form-control" id="email" name="email" value="<%= it.user.email %>" readonly>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <button type="button" class="btn btn-profile-action w-100 __btn__copy-user">
+                      <i class="fas fa-copy"></i>
+                      Copiar ID
+                    </button>
+                  </div>
+                  <% if (it.user.role === 'ADMIN') { %>
+                  <div class="mb-3">
+                    <button type="button" class="btn btn-profile-action w-100" data-bs-toggle="modal" data-bs-target="#cloudflareR2Modal">
+                      <i class="fas fa-cloud"></i>
+                      Cloudflare R2
+                    </button>
+                  </div>
+                  <% } %>
+                  <% if (it.user.role === 'RESELLER' && it.user.expires_at) { %>
+                  <div class="mb-3">
+                    <label for="expires_at" class="form-label">Vence</label>
+                    <div class="input-group">
+                      <i class="input-group-text fas fa-calendar-day"></i>
+                      <input type="text" class="form-control" id="expires_at" name="expires_at" value="<%= it.formatDate(it.user.expires_at) %>" readonly>
+                    </div>
+                  </div>
+                  <% } %>
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <div class="input-group">
+                      <i class="input-group-text fas fa-lock"></i>
+                      <input type="password" class="form-control" id="password" name="password">
+                      <button class="input-group-text  border border-1" type="button" onclick="showPassword()">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="confirm_password" class="form-label">Confirmar la contraseña</label>
+                    <div class="input-group">
+                      <i class="input-group-text fas fa-lock-open"></i>
+                      <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+                      <button class="input-group-text  border border-1" type="button" onclick="showPassword()">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-center ">
+                    <button type="submit" class="btn btn-dark w-100 __btn__save">Guardar</button>
+                  </div>
+                </div>
+              </div>
+              <% if (it.user.role === 'ADMIN') { %>
+              <div class="modal fade" id="cloudflareR2Modal" tabindex="-1" aria-labelledby="cloudflareR2ModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <form id="r2ConfigurationForm" novalidate>
+                      <div class="modal-header">
+                        <h2 class="modal-title fs-5" id="cloudflareR2ModalLabel">Cloudflare R2</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                      </div>
+                      <div class="modal-body">
+                    <div class="mb-3">
+                      <label for="r2_account_id" class="form-label">Account ID</label>
+                      <input type="text" class="form-control" id="r2_account_id" maxlength="32" pattern="[a-fA-F0-9]{32}" value="<%= /^[a-f0-9]{32}$/i.test(it.user.r2_account_id || '') ? it.user.r2_account_id : '' %>">
+                    </div>
+                    <div class="mb-3">
+                      <label for="r2_access_key_id" class="form-label">Access Key ID</label>
+                      <input type="text" class="form-control" id="r2_access_key_id" value="<%= it.user.r2_access_key_id || '' %>">
+                    </div>
+                    <div class="mb-3">
+                      <label for="r2_secret_access_key" class="form-label">Secret Access Key</label>
+                      <input type="password" class="form-control" id="r2_secret_access_key">
+                    </div>
+                    <div class="mb-3">
+                      <label for="r2_bucket_name" class="form-label">Bucket</label>
+                      <input type="text" class="form-control" id="r2_bucket_name" maxlength="63" pattern="[a-z0-9][a-z0-9.-]*[a-z0-9]|[a-z0-9]" value="<%= it.user.r2_bucket_name || '' %>">
+                    </div>
+                    <div class="mb-3">
+                      <label for="r2_public_domain" class="form-label">Dominio público</label>
+                      <input type="url" class="form-control" id="r2_public_domain" value="<%= it.user.r2_public_domain || '' %>">
+                    </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-dark">Guardar</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+                <% } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="../static/js/sidebar.js"></script>
+  <script src="../static/js/utils.js"></script>
+
+  <script>
+    let csrfToken = getCsrfTokenHead();
+
+    document.querySelector('.__btn__copy-user').addEventListener('click', async () => {
+      const userId = document.getElementById('id').value;
+
+      try {
+        await navigator.clipboard.writeText(userId);
+      } catch (error) {
+        copyToClipboard(userId);
+      }
+
+      showToastSuccess('ID copiado con éxito!');
+    });
+
+    const btnSave = document.querySelector('.__btn__save')
+    btnSave.addEventListener('click', async () => {
+
+      const username = document.getElementById('username').value
+      const password = document.getElementById('password').value || null
+      const confirm_password = document.getElementById('confirm_password').value || null
+
+      if (password !== confirm_password) {
+        showToastError('Las contraseñas no verifican!')
+        return
+      }
+
+      if (password && password.length < 6) {
+        showToastError('¡Contraseña muy corta, debe contener al menos 6 caracteres!')
+        return
+      }
+
+      try {
+
+        const body = {
+          username,
+          password,
+          confirm_password
+        }
+
+        const response = await fetch('/profile', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'csrf-token': csrfToken
+          },
+          body: JSON.stringify(body)
+        });
+
+        const csrfTokenRefresh = getCsrfTokenRefresh(response);
+        if (csrfTokenRefresh) csrfToken = csrfTokenRefresh;
+
+        if (response.status === 200) {
+          showToastSuccess('Perfil guardado correctamente!')
+          return;
+        }
+
+        const result = await response.json();
+
+        if (result.message) {
+          showToastError(result.message)
+          return;
+        }
+
+      } catch (err) {
+        showToastError('No se pueden cambiar los datos')
+      }
+    })
+
+    <% if (it.user.role === 'ADMIN') { %>
+    document.getElementById('r2ConfigurationForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const form = event.currentTarget;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      try {
+        const response = await fetch('/profile/r2', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            'csrf-token': csrfToken
+          },
+          body: JSON.stringify({
+            r2_account_id: document.getElementById('r2_account_id').value || null,
+            r2_access_key_id: document.getElementById('r2_access_key_id').value || null,
+            r2_secret_access_key: document.getElementById('r2_secret_access_key').value || null,
+            r2_bucket_name: document.getElementById('r2_bucket_name').value || null,
+            r2_public_domain: document.getElementById('r2_public_domain').value || null
+          })
+        });
+
+        const csrfTokenRefresh = getCsrfTokenRefresh(response);
+        if (csrfTokenRefresh) csrfToken = csrfTokenRefresh;
+
+        if (response.ok) {
+          document.getElementById('r2_secret_access_key').value = '';
+          showToastSuccess('Cloudflare R2 guardado correctamente!');
+          return;
+        }
+
+        const result = await response.json();
+        showToastError(result.message || 'No se pudo guardar Cloudflare R2.');
+      } catch (error) {
+        showToastError('No se pudo guardar Cloudflare R2.');
+      }
+    });
+    <% } %>
+
+    function showPassword() {
+      const password = document.getElementById('password')
+      const confirm_password = document.getElementById('confirm_password')
+
+      if (password.type === 'password' && confirm_password.type === 'password') {
+        password.type = 'text'
+        confirm_password.type = 'text'
+      } else {
+        password.type = 'password'
+        confirm_password.type = 'password'
+      }
+    }
+  </script>
+</body>
+
+</html>
