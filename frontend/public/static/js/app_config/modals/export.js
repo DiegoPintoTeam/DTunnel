@@ -14,37 +14,11 @@ class ConfigAppExportFile {
     }
 }
 
-class ConfigAppExportUrl {
-    constructor(config) {
-        this.config = config;
-    }
-
-    async export() {
-        const form = new FormData();
-        form.append('file', new File(
-            [this.config],
-            'config.json', {
-            type: 'application/json'
-        }));
-
-        const response = await fetch('/config/upload/file', {
-            method: 'POST',
-            body: form
-        });
-        const result = await response.json();
-        if (result.status != 200)
-            throw new Error();
-        return result.data;
-    }
-}
-
 class ConfigAppExportFactory {
     static create(type, config) {
         switch (type) {
             case 'FILE':
                 return new ConfigAppExportFile(config);
-            case 'LINK':
-                return new ConfigAppExportUrl(config);
         }
     }
 }
@@ -73,36 +47,13 @@ class AppConfigExportModal {
             <div class="modal-body">
                 <textarea class="form-control mb-3 d-none" rows="10"></textarea>
                 <div class="__preview d-flex align-items-center justify-content-center mb-3"></div>
-                <div class="__items mb-3" style="display: none;">
-                    <div class="d-flex flex-column w-100 gap-3">
-                        <div class="w-auto">
-                            <label class="form-label">Enlace de datos</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control __link" readonly>
-                                <button class="btn btn-dark btn__copy__link" type="button">
-                                    <i class="fas fa-clipboard"></i>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="w-auto">
-                            <label class="form-label">Enlace de vista previa</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control __share" readonly>
-                                <button class="btn btn-dark btn__copy__share" type="button">
-                                    <i class="fas fa-clipboard"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="__spinner justify-content-center p-3 d-none">
                     <div class="spinner-border p-3" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <button type="button" class="btn btn-dark w-100 me-3" data-type="FILE">ARCHIVO</button>
-                    <button type="button" class="btn btn-dark w-100" data-type="LINK" disabled>LINK</button>
+                <div class="d-grid">
+                    <button type="button" class="btn btn-dark w-100" data-type="FILE">ARCHIVO</button>
                 </div>
             </div>
         </div>
@@ -119,19 +70,10 @@ class AppConfigExportModal {
         this._root.querySelector('textarea').value = convertConfigToExport(config);
 
         this.modal = new bootstrap.Modal(this._element);
-        this._root.querySelector('button[data-type="LINK"]').addEventListener('click', () => this.export('LINK'));
         this._root.querySelector('button[data-type="FILE"]').addEventListener('click', () => this.export('FILE'));
-
-        this._root.querySelector('.btn__copy__link').addEventListener('click', () => this.copy(this._root.querySelector('.__link').value));
-        this._root.querySelector('.btn__copy__share').addEventListener('click', () => this.copy(this._root.querySelector('.__share').value));
 
         this._preview = this._root.querySelector('.__preview');
         this._preview.appendChild(app.element);
-    }
-
-    copy(data) {
-        navigator.clipboard.writeText(data);
-        showToastSuccess('Copiado con éxitoo!');
     }
 
     showLoading() {
@@ -148,18 +90,17 @@ class AppConfigExportModal {
         showToastInfo('Exportando configuración...');
         this.showLoading();
 
-        const config = this._root.querySelector('textarea').value;
-        const exportConfig = ConfigAppExportFactory.create(type, config);
-        const result = await exportConfig.export();
+        try {
+            const config = this._root.querySelector('textarea').value;
+            const exportConfig = ConfigAppExportFactory.create(type, config);
+            await exportConfig.export();
 
-        if (result) {
-            this._root.querySelector('.__items').style.display = 'flex';
-            this._root.querySelector('.__link').value = result;
-            this._root.querySelector('.__share').value = window.location.origin + '/app/render?url=' + result;
+            showToastSuccess('Configuración exportada correctamente!');
+        } catch (error) {
+            showToastError(error.message);
+        } finally {
+            this.hideLoading();
         }
-
-        this.hideLoading();
-        showToastSuccess('Configuración exportada correctamente!');
     }
 
     show() {

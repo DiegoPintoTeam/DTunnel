@@ -1,5 +1,4 @@
 const ExportType = {
-    LINK: 'LINK',
     FILE: 'FILE',
     APP: 'APP'
 }
@@ -14,30 +13,6 @@ class ConfigExportFile {
         a.click();
         URL.revokeObjectURL(url);
         showToastSuccess('Vaya! configuración exportada correctamente!');;
-    }
-}
-
-class ConfigExportUrl {
-    async export(data) {
-        showToastInfo('Espere mientras se exporta la configuración...');
-        const form = new FormData();
-        const file = new File([data], 'config.json', { type: 'application/json' });
-        form.append('file', file);
-
-        try {
-            const response = await fetch('/config/upload/file', {
-                method: 'POST',
-                body: form
-            });
-            const result = await response.json();
-            if (result.status != 200)
-                throw new Error();
-
-            showToastSuccess('Vaya! configuración exportada correctamente!');
-            return result.data;
-        } catch (e) {
-            showToastError('Ops! No se pudo exportar la configuración!');
-        }
     }
 }
 
@@ -80,8 +55,6 @@ class ConfigExportFactory {
         switch (type) {
             case ExportType.FILE:
                 return new ConfigExportFile();
-            case ExportType.LINK:
-                return new ConfigExportUrl();
             case ExportType.APP:
                 return new ConfigExportApp();
             default:

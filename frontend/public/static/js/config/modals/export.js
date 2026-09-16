@@ -15,11 +15,10 @@ class ExportConfigModal {
                 <div class="modal-body">
                     <div class="d-flex flex-column">
                         <textarea class="form-control mb-3 mh-100" cols="30" rows="10"></textarea>
-                        <div class="d-flex justify-content-between gap-3">
-                            <button type="button" class="btn-responsive w-100 opacity-75" disabled>LINK</button>
-                            <button type="button" class="btn-responsive w-100">ARCHIVO</button>
-                            <button type="button" class="btn-responsive w-100">APP</button>
-                            <button type="button" class="btn-responsive w-100">COPIAR</button>
+                        <div class="d-grid gap-3" style="grid-template-columns: repeat(3, minmax(0, 1fr));">
+                            <button type="button" class="btn-responsive">ARCHIVO</button>
+                            <button type="button" class="btn-responsive">APP</button>
+                            <button type="button" class="btn-responsive">COPIAR</button>
                         </div>
                     </div>
                 </div>
@@ -30,10 +29,9 @@ class ExportConfigModal {
         this.textArea = this._element.querySelector('textarea');
         this.textArea.value = JSON.stringify(this.__parseItems(items), null, 4);
 
-        this._element.querySelectorAll('.btn-responsive')[0].onclick = () => this.export('LINK');
-        this._element.querySelectorAll('.btn-responsive')[1].onclick = () => this.export('FILE');
-        this._element.querySelectorAll('.btn-responsive')[2].onclick = () => this.export('APP');
-        this._element.querySelectorAll('.btn-responsive')[3].onclick = () => this.copy();
+        this._element.querySelectorAll('.btn-responsive')[0].onclick = () => this.export('FILE');
+        this._element.querySelectorAll('.btn-responsive')[1].onclick = () => this.export('APP');
+        this._element.querySelectorAll('.btn-responsive')[2].onclick = () => this.copy();
     }
 
     __parseItems(items) {
